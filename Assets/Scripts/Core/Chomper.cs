@@ -3,12 +3,14 @@ using UnityEngine;
 
 namespace Core
 {
-    public class Chomper : MonoBehaviour, ISelectable
+    public class Chomper : MonoBehaviour, ISelectable, IAttackable
     {
+        public Transform Transform => _transform;
         public float Health => _health;
         public float MaxHealth => _maxHealth;
         public Sprite Icon => _icon;
 
+        [SerializeField] private Transform _transform;
         [SerializeField] private float _maxHealth = 100;
         [SerializeField] private Sprite _icon;
 

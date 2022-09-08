@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace Core
 {
-    public sealed class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
+    public sealed class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable, IAttackable
     {
+        public Transform Transform => _transform;
         public float Health => _health;
         public float MaxHealth => _maxHealth;
         public Sprite Icon => _icon;
@@ -15,6 +16,7 @@ namespace Core
 
         [SerializeField] private float _maxHealth = 1000;
         [SerializeField] private Sprite _icon;
+        [SerializeField] private Transform _transform;
 
         private float _health = 1000;
 
