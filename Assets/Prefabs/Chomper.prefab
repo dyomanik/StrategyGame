@@ -3428,6 +3428,8 @@ GameObject:
   - component: {fileID: 1124629355905974836}
   - component: {fileID: 4822861117119059458}
   - component: {fileID: 8268703833435908893}
+  - component: {fileID: 7348931637789088950}
+  - component: {fileID: 5904669907505431524}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -3464,7 +3466,7 @@ Animator:
   m_GameObject: {fileID: 2838175430601958874}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2732fe64dd2799f439fb845921df626b, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: da357f8756813cc4ebb98d878c557b29, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3526,6 +3528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3885fdf8370e842b3db0031f34d2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stop: {fileID: 7348931637789088950}
+  _animator: {fileID: 2838175430611310104}
+  _stopCommandExecutor: {fileID: 4822861117119059458}
 --- !u!114 &4822861117119059458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3550,6 +3555,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b59ab438f9023946b3e51603ee7338f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7348931637789088950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838175430601958874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebd0b22c03408d4cb9109f913709cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 5904669907505431524}
+--- !u!195 &5904669907505431524
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838175430601958874}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4669467655319990068
 GameObject:
   m_ObjectHideFlags: 0
