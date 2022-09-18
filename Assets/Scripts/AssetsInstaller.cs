@@ -1,5 +1,6 @@
 using Abstractions;
 using Abstractions.Commands.CommandsInterfaces;
+using System;
 using UnityEngine;
 using UserControlSystem;
 using Utils;
@@ -29,7 +30,7 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
             .To<StopCommandCommandCreator>().AsTransient();
         Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackableClicksRMB);
         Container.Bind<IAwaitable<Vector3>>().FromInstance(_groundClicksRMB);
-
+        Container.Bind<IObservable<ISelectable>>().FromInstance(_selectables);
 
         Container.Bind<CommandButtonsModel>().AsTransient();
     }

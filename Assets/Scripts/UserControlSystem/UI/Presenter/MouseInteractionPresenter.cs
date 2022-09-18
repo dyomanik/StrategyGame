@@ -3,6 +3,7 @@ using Abstractions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UserControlSystem;
+using UniRx;
 
 public sealed class MouseInteractionPresenter : MonoBehaviour
 {
@@ -18,37 +19,36 @@ public sealed class MouseInteractionPresenter : MonoBehaviour
     private void Start()
     {
         _groundPlane = new Plane(_groundTransform.up, 0);
+        ProcessMouseButtons();
     }
 
-    private void Update()
+    private void ProcessMouseButtons()
     {
-        if (!Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
-        {
-            return;
-        }
+        var nonBlockedByUIStream = Observable.EveryUpdate().Where(_ => !_eventSystem.IsPointerOverGameObject());
 
-        if (_eventSystem.IsPointerOverGameObject())
-        {
-            return;
-        }
-        var ray = _camera.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.RaycastAll(ray);
+        var raysStream = nonBlockedByUIStream.Select(_ => _camera.ScreenPointToRay(Input.mousePosition));
+        var rayAndHitsStream = raysStream.Select(ray => (ray, Physics.RaycastAll(ray)));
 
-        if (Input.GetMouseButtonUp(0))
+        var leftMouseButtonClickedStream = rayAndHitsStream.Where(_ => Input.GetMouseButtonUp(0));
+        var rightMouseButtonClickedStream = rayAndHitsStream.Where(_ => Input.GetMouseButtonUp(1));
+
+        leftMouseButtonClickedStream.Subscribe(rayAndHitsData =>
         {
+            var (ray, hits) = rayAndHitsData;
             if (hits.Length == 0)
             {
                 return;
             }
-
             var selectable = hits
             .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
             .Where(c => c != null)
             .FirstOrDefault();
             _selectedObject.SetValue(selectable);
-        }
-        else
+        });
+
+        rightMouseButtonClickedStream.Subscribe(rayAndHitsData =>
         {
+            var (ray, hits) = rayAndHitsData;
             if (isHiting<IAttackable>(hits, out var attackable))
             {
                 _attackableObjectRMB.SetValue(attackable);
@@ -57,7 +57,7 @@ public sealed class MouseInteractionPresenter : MonoBehaviour
             {
                 _groundClicksRMB.SetValue(ray.origin + ray.direction * enter);
             }
-        }
+        });
     }
 
     private bool isHiting<T>(RaycastHit[] hits, out T result) where T : class
@@ -75,4 +75,5 @@ public sealed class MouseInteractionPresenter : MonoBehaviour
 
         return result != default(T);
     }
+
 }
