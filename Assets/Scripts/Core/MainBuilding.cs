@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public sealed class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable, IAttackable
+    public sealed class MainBuilding : MonoBehaviour, ISelectable, IAttackable
     {
         public Transform Transform => _transform;
         public float Health => _health;
@@ -19,11 +19,5 @@ namespace Core
         [SerializeField] private Transform _transform;
 
         private float _health = 1000;
-
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
-            => Instantiate(command.UnitPrefab,
-                new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                Quaternion.identity,
-                _unitsParent);
     }
 }

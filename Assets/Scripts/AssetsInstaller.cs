@@ -13,25 +13,15 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
     [SerializeField] private Vector3Value _groundClicksRMB;
     [SerializeField] private AttackableValue _attackableClicksRMB;
     [SerializeField] private SelectableValue _selectables;
+    [SerializeField] private Sprite _chomperSprite;
     public override void InstallBindings()
     {
-        Container.BindInstances(_legacyContext, _groundClicksRMB,
-        _selectables, _attackableClicksRMB);
+        Container.BindInstances(_legacyContext,_selectables);
 
-        Container.Bind<CommandCreatorBase<IProduceUnitCommand>>()
-            .To<ProduceUnitCommandCommandCreator>().AsTransient();
-        Container.Bind<CommandCreatorBase<IAttackCommand>>()
-            .To<AttackCommandCommandCreator>().AsTransient();
-        Container.Bind<CommandCreatorBase<IMoveCommand>>()
-            .To<MoveCommandCommandCreator>().AsTransient();
-        Container.Bind<CommandCreatorBase<IPatrolCommand>>()
-            .To<PatrolCommandCommandCreator>().AsTransient();
-        Container.Bind<CommandCreatorBase<IStopCommand>>()
-            .To<StopCommandCommandCreator>().AsTransient();
         Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackableClicksRMB);
         Container.Bind<IAwaitable<Vector3>>().FromInstance(_groundClicksRMB);
         Container.Bind<IObservable<ISelectable>>().FromInstance(_selectables);
 
-        Container.Bind<CommandButtonsModel>().AsTransient();
+        Container.Bind<Sprite>().WithId("Chomper").FromInstance(_chomperSprite);
     }
 }

@@ -2,10 +2,8 @@
 
 namespace Abstractions
 {
-    public interface ISelectable : IHealthHolder
+    public interface ISelectable : IHealthHolder, IIconHolder
     {
         Transform Transform { get; }
-
-        Sprite Icon { get; }
     }
 }
