@@ -12,6 +12,7 @@ namespace UserControlSystem.UI.View
     {
         [SerializeField] private Slider _productionProgressSlider;
         [SerializeField] private TextMeshProUGUI _currentUnitName;
+        [SerializeField] private Image _currentUnitIcon;
 
         [SerializeField] private Image[] _images;
         [SerializeField] private GameObject[] _imageHolders;
@@ -43,6 +44,7 @@ namespace UserControlSystem.UI.View
             _productionProgressSlider.gameObject.SetActive(false);
             _currentUnitName.text = string.Empty;
             _currentUnitName.enabled = false;
+            _currentUnitIcon.enabled = false;
             _unitProductionTaskCt?.Dispose();
         }
 
@@ -58,6 +60,7 @@ namespace UserControlSystem.UI.View
                     _productionProgressSlider.gameObject.SetActive(false);
                     _currentUnitName.text = string.Empty;
                     _currentUnitName.enabled = false;
+                    _currentUnitIcon.enabled = false;
                     _unitProductionTaskCt?.Dispose();
                 }
             }
@@ -65,6 +68,8 @@ namespace UserControlSystem.UI.View
             {
                 _imageHolders[index].SetActive(true);
                 _images[index].sprite = task.Icon;
+                _currentUnitIcon.enabled = true;
+                _currentUnitIcon.sprite = task.Icon;
 
                 if (index == 0)
                 {

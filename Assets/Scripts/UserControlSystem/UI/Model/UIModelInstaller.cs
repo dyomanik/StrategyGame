@@ -1,5 +1,6 @@
 ﻿using Abstractions.Commands.CommandsInterfaces;
 using UserControlSystem.UI.Model;
+using UserControlSystem.UI.Model.CommandCreator;
 using Zenject;
 
 namespace UserControlSystem
@@ -18,6 +19,8 @@ namespace UserControlSystem
                 .To<PatrolCommandCommandCreator>().AsTransient();
             Container.Bind<CommandCreatorBase<IStopCommand>>()
                 .To<StopCommandCommandCreator>().AsTransient();
+            Container.Bind<CommandCreatorBase<ISetCollectionPointCommand>>().
+                To<SetCollectionPointCommandCreator>().AsTransient();
 
             Container.Bind<CommandButtonsModel>().AsTransient();
 

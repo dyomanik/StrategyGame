@@ -1,9 +1,10 @@
 ﻿using Abstractions.Commands.CommandsInterfaces;
-using Abstractions.Commands;
 using Abstractions;
 using UniRx;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using System.Threading.Tasks;
+using Zenject;
+using Abstractions.Commands;
 
 namespace Core.CommandExecutors
 {
@@ -12,6 +13,7 @@ namespace Core.CommandExecutors
         [SerializeField] private Transform _unitsParent;
         [SerializeField] private int _maximumUnitsInQueue = 5;
         private ReactiveCollection<IUnitProductionTask> _queue = new ReactiveCollection<IUnitProductionTask>();
+        [Inject] private DiContainer _diContainer;
 
         public IReadOnlyReactiveCollection<IUnitProductionTask> Queue => _queue;
 
@@ -26,10 +28,10 @@ namespace Core.CommandExecutors
             if (innerTask.TimeLeft <= 0)
             {
                 removeTaskAtIndex(0);
-                Instantiate(innerTask.UnitPrefab, 
-                    new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                    Quaternion.identity, 
-                    _unitsParent);
+                var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab, transform.position, Quaternion.identity, _unitsParent);
+                var queue = instance.GetComponent<ICommandsQueue>();
+                var mainBuilding = GetComponent<MainBuilding>();
+                queue.EnqueueCommand(new MoveCommand(mainBuilding.CollectionPoint));
             }
         }
 
@@ -45,9 +47,12 @@ namespace Core.CommandExecutors
             _queue.RemoveAt(_queue.Count - 1);
         }
 
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
+        public override async Task ExecuteSpecificCommand(IProduceUnitCommand command)
         {
-            _queue.Add(new UnitProductionTask(command.ProductionTime, command.Icon, command.UnitPrefab, command.UnitName));
+            if (_queue.Count < _maximumUnitsInQueue)
+            {
+                _queue.Add(new UnitProductionTask(command.ProductionTime, command.Icon, command.UnitPrefab, command.UnitName));
+            }
         }
     }
 }

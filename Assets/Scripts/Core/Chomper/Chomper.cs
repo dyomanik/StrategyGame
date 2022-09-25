@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Core
 {
-    public class Chomper : MonoBehaviour, ISelectable, IAttackable
+    public class Chomper : MonoBehaviour, ISelectable, IAttackable, IUnit
     {
-        public Transform Transform => _transform;
-        public float Health => _health;
-        public float MaxHealth => _maxHealth;
-        public Sprite Icon => _icon;
-
         [SerializeField] private Transform _transform;
         [SerializeField] private float _maxHealth = 100;
         [SerializeField] private Sprite _icon;
 
         private float _health = 100;
+
+        public Transform Transform => _transform;
+        public float Health => _health;
+        public float MaxHealth => _maxHealth;
+        public Sprite Icon => _icon;
     }
 }

@@ -23,10 +23,10 @@ namespace UserControlSystem.UI.Presenter
             _model.OnCommandCancel += _view.UnblockAllInteractions;
             _model.OnCommandAccepted += _view.BlockInteractions;
 
-            _selectable.Subscribe(ONSelected);
+            _selectable.Subscribe(OnSelected);
         }
 
-        private void ONSelected(ISelectable selectable)
+        private void OnSelected(ISelectable selectable)
         {
             if (_currentSelectable == selectable)
             {
@@ -43,7 +43,8 @@ namespace UserControlSystem.UI.Presenter
             {
                 var commandExecutors = new List<ICommandExecutor>();
                 commandExecutors.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
-                _view.MakeLayout(commandExecutors);
+                var queue = (selectable as Component).GetComponentInParent<ICommandsQueue>();
+                _view.MakeLayout(commandExecutors, queue);
             }
         }
     }
