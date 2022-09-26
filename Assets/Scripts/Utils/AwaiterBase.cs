@@ -24,7 +24,7 @@ namespace Utils
 
         public TAwaited GetResult() => _result;
 
-        protected void onWaitFinish(TAwaited result)
+        protected void OnWaitFinish(TAwaited result)
         {
             _result = result;
             _isCompleted = true;

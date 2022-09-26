@@ -9,9 +9,6 @@ namespace Core.CommandExecutors
 {
     public class MoveCommandExecutor : CommandExecutorBase<IMoveCommand>
     {
-        private readonly string IDLE = nameof(IDLE);
-        private readonly string WALK = nameof(WALK);
-
         [SerializeField] private UnitMovementStop _stop;
         [SerializeField] private Animator _animator;
         [SerializeField] private StopCommandExecutor _stopCommandExecutor;
@@ -19,7 +16,7 @@ namespace Core.CommandExecutors
         public override async Task ExecuteSpecificCommand(IMoveCommand command)
         {
             GetComponent<NavMeshAgent>().destination = command.Target;
-            _animator.SetTrigger(WALK);
+            _animator.SetTrigger(UnitAnimationType.WALK.ToString());
             Debug.Log($"{name} is moving to {command.Target}!");
             _stopCommandExecutor.CancellationTokenSource = new CancellationTokenSource();
             try
@@ -32,7 +29,7 @@ namespace Core.CommandExecutors
                 GetComponent<NavMeshAgent>().ResetPath();
             }
             _stopCommandExecutor.CancellationTokenSource = null;
-            _animator.SetTrigger(IDLE);
+            _animator.SetTrigger(UnitAnimationType.IDLE.ToString());
         }
     }
 }

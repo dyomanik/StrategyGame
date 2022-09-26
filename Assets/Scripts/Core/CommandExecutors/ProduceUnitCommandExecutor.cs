@@ -31,6 +31,8 @@ namespace Core.CommandExecutors
                 var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab, transform.position, Quaternion.identity, _unitsParent);
                 var queue = instance.GetComponent<ICommandsQueue>();
                 var mainBuilding = GetComponent<MainBuilding>();
+                var fractionMember = instance.GetComponent<FractionMember>();
+                fractionMember.SetFraction(GetComponent<FractionMember>().FractionId);
                 queue.EnqueueCommand(new MoveCommand(mainBuilding.CollectionPoint));
             }
         }

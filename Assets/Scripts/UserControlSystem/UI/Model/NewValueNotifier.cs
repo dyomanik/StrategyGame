@@ -15,7 +15,7 @@ namespace UserControlSystem
             private void onNewValue(TAwaited obj)
             {
                 _scriptableValueBase.OnNewValue -= onNewValue;
-                onWaitFinish(obj);
+                OnWaitFinish(obj);
             }
         }
 }

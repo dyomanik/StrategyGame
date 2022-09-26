@@ -22,7 +22,7 @@ namespace Core
             private void ONStop()
             {
                 _unitMovementStop.OnStop -= ONStop;
-                onWaitFinish(new AsyncExtensions.Void());
+                OnWaitFinish(new AsyncExtensions.Void());
             }
         }
 
