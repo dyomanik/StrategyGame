@@ -3430,8 +3430,8 @@ GameObject:
   - component: {fileID: 8701122646319827434}
   - component: {fileID: 5681378108344983163}
   - component: {fileID: 1124629355905974836}
-  - component: {fileID: 4822861117119059458}
   - component: {fileID: 8268703833435908893}
+  - component: {fileID: 4822861117119059458}
   - component: {fileID: 1895461010727635791}
   - component: {fileID: 6191353314378443406}
   - component: {fileID: 5040889538297119191}
@@ -3604,18 +3604,6 @@ MonoBehaviour:
   _stop: {fileID: 7348931637789088950}
   _animator: {fileID: 2838175430611310104}
   _stopCommandExecutor: {fileID: 4822861117119059458}
---- !u!114 &4822861117119059458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838175430601958874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ba057ab8ae3ff4ca42cf345e985631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8268703833435908893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3630,7 +3618,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 2838175430611310104}
   _stopCommandExecutor: {fileID: 4822861117119059458}
-  _unitMovementStop: {fileID: 0}
+  _unitMovementStop: {fileID: 7348931637789088950}
+--- !u!114 &4822861117119059458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838175430601958874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ba057ab8ae3ff4ca42cf345e985631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1895461010727635791
 MonoBehaviour:
   m_ObjectHideFlags: 0
